@@ -1,0 +1,5 @@
+{
+  "watch": ["src", "config", "scripts"],
+  "ext": "js,json,ts,tsx",
+  "exec": "node --import ./loader.js src/app.ts"
+}

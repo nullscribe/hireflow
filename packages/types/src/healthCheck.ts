@@ -1,6 +1,7 @@
 export interface HealthCheckResponse {
-  status: string;
+  status: "healthy" | "unhealthy";
   database: {
     status: "healthy" | "unhealthy";
+    error?: string;
   };
 }
