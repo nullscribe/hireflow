@@ -22,7 +22,7 @@ export default class AuthRepository {
     }
 
     const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, {
-      expiresIn: "7d"
+      expiresIn: "7d",
     });
 
     return { user: { id: user.id, name: user.name, email: user.email }, token };
@@ -41,7 +41,7 @@ export default class AuthRepository {
       .values({
         name: dto.name,
         email: dto.email,
-        password: hashedPassword
+        password: hashedPassword,
       })
       .returning();
 

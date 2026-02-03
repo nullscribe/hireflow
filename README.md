@@ -20,7 +20,7 @@ Hireflow is a modern job posting site built with a monorepo architecture. It inc
 - **Frontend (Web):**
   - [React](https://reactjs.org/)
   - [Vite](https://vitejs.dev/)
-  - [TypeScript](https://www.typescriptlang.org/)
+  - [TypeScript](https://www.typescriptlang.org/)[]()
 - **Frontend (Mobile):**
   - [React Native](https://reactnative.dev/)
   - [Expo](https://expo.dev/)

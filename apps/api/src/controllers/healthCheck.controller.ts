@@ -13,16 +13,16 @@ export default class HealthCheckController {
       res.json({
         status: "healthy",
         database: {
-          status: "healthy"
-        }
+          status: "healthy",
+        },
       } as HealthCheckResponse);
     } catch (error) {
       res.status(500).json({
         status: "healthy",
         database: {
           status: "unhealthy",
-          error: error
-        }
+          error: error,
+        },
       } as HealthCheckResponse);
     }
   };

@@ -1,31 +1,63 @@
-import { StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView, StyleSheet } from "react-native";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
+import type { Job, CategoryGroup, CountryGroup } from "@hireflow/types";
+import { jobsApi } from "@/lib/apiService";
+import colors from "@/constants/Colors";
+import CenteredActivityIndicator from "@/components/CenteredActivityIndicator";
+import Header from "@/components/Header";
+import CountryWiseJobsSection from "@/components/CountryWiseJobSection/CountryWiseJobSection";
+import CategoryWiseJobSection from "@/components/CategoryWiseJobSection/CategoryWiseJobSection";
 
-export default function TabOneScreen() {
+export default function HomeScreen() {
+  const [countries, setCountries] = useState<CountryGroup[]>([]);
+  const [categories, setCategories] = useState<CategoryGroup[]>([]);
+  const [featuredJobs, setFeaturedJobs] = useState<Job[]>([]);
+  const [recentJobs, setRecentJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const [countriesRes, categoriesRes, featuredRes, recentRes] = await Promise.all([
+        jobsApi.getCountries(),
+        jobsApi.getCategories(),
+        jobsApi.getFeaturedJobs(),
+        jobsApi.getRecentJobs(),
+      ]);
+
+      setCountries((_) => countriesRes.data.countries);
+      setCategories((_) => categoriesRes.data.categories);
+      setFeaturedJobs((_) => featuredRes.data.jobs);
+      setRecentJobs((_) => recentRes.data.jobs);
+    } catch (error: any) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return <CenteredActivityIndicator />;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>First Tab</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flex: 1 }}>
+        <Header title="Home" backLink={false} />
+
+        <CountryWiseJobsSection countries={countries} />
+        <CategoryWiseJobSection categories={categories} />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold"
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%"
-  }
+  container: { flex: 1, padding: 6, backgroundColor: colors.background },
 });

@@ -3,10 +3,15 @@ import type { Request, Response } from "express";
 import JobRepository from "../repositories/job.repo.js";
 import type {
   BasicApiResponse,
+  CategoryJobsResponse,
+  CountryJobsResponse,
   ErrorResponse,
+  FeaturedJobsResponse,
   JobDetailResponse,
+  JobFilters,
   JobListResponse,
-  SavedJobsResponse
+  RecentJobsResponse,
+  SavedJobsResponse,
 } from "@hireflow/types";
 import type { AuthRequest } from "../middlewares/authHandler.js";
 
@@ -14,9 +19,22 @@ import type { AuthRequest } from "../middlewares/authHandler.js";
 export default class JobController {
   constructor(private readonly jobRepo: JobRepository) {}
 
-  handleGetAllJobs = async (_req: Request, res: Response<JobListResponse | ErrorResponse>) => {
+  handleGetAllJobs = async (req: Request, res: Response<JobListResponse | ErrorResponse>) => {
     try {
-      const jobs = await this.jobRepo.getAll();
+      const filters: JobFilters = {};
+
+      if (req.query.country) filters.country = req.query.country as string;
+      if (req.query.industry) filters.industry = req.query.industry as string;
+      if (req.query.jobType) filters.jobType = req.query.jobType as any;
+      if (req.query.experienceLevel) filters.experienceLevel = req.query.experienceLevel as any;
+      if (req.query.location) filters.location = req.query.location as string;
+      if (req.query.salaryMin) filters.salaryMin = Number(req.query.salaryMin);
+      if (req.query.salaryMax) filters.salaryMax = Number(req.query.salaryMax);
+      if (req.query.limit) filters.limit = Number(req.query.limit);
+      if (req.query.offset) filters.offset = Number(req.query.offset);
+      if (req.query.search) filters.search = req.query.search as string;
+
+      const jobs = await this.jobRepo.getAll(filters);
       res.json({ jobs });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
@@ -52,7 +70,7 @@ export default class JobController {
 
   handleGetSavedJobs = async (
     req: AuthRequest,
-    res: Response<SavedJobsResponse | ErrorResponse>
+    res: Response<SavedJobsResponse | ErrorResponse>,
   ) => {
     try {
       const candidateId = req.user?.userId;
@@ -61,6 +79,51 @@ export default class JobController {
       }
       const jobs = await this.jobRepo.getSavedJob(candidateId);
       res.json({ jobs });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+  handleGetCountryJobCount = async (
+    _req: Request,
+    res: Response<CountryJobsResponse | ErrorResponse>,
+  ) => {
+    try {
+      const countryByJobCount = await this.jobRepo.getCountryGroup();
+      res.status(200).json({ countries: countryByJobCount });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+  handleGetCategoriesJobCount = async (
+    _req: Request,
+    res: Response<CategoryJobsResponse | ErrorResponse>,
+  ) => {
+    try {
+      const categoryByJobCount = await this.jobRepo.getCategoryGroup();
+      res.json({ categories: categoryByJobCount });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+  handleGetFeatured = async (
+    _req: Request,
+    res: Response<FeaturedJobsResponse | ErrorResponse>,
+  ) => {
+    try {
+      const featured = await this.jobRepo.getFeatured();
+      res.json({ jobs: featured });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+  handleGetRecent = async (_req: Request, res: Response<RecentJobsResponse | ErrorResponse>) => {
+    try {
+      const featured = await this.jobRepo.getRecent();
+      res.json({ jobs: featured });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }

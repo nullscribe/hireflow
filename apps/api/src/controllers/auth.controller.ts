@@ -9,7 +9,7 @@ export default class AuthController {
 
   handleLogin = async (
     req: Request<{}, {}, LoginDTO>,
-    res: Response<AuthResponse | ErrorResponse>
+    res: Response<AuthResponse | ErrorResponse>,
   ) => {
     try {
       const { email, password } = req.body;
@@ -22,7 +22,7 @@ export default class AuthController {
 
   handleRegistration = async (
     req: Request<{}, {}, RegisterDTO>,
-    res: Response<AuthResponse | ErrorResponse>
+    res: Response<AuthResponse | ErrorResponse>,
   ) => {
     try {
       const { name, email, password } = req.body;

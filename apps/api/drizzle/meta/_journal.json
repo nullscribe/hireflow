@@ -8,6 +8,20 @@
       "when": 1769645069061,
       "tag": "0000_open_cerise",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1769747539780,
+      "tag": "0001_last_smasher",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1770127939564,
+      "tag": "0002_brief_naoko",
+      "breakpoints": true
     }
   ]
 }
