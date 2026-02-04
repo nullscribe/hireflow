@@ -1,64 +1,33 @@
-import { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from "react-native";
-import { router } from "expo-router";
-import { authApi } from "@/lib/apiService";
-import { useAuthStore } from "@/stores/authStore";
+import { View, Text, StyleSheet, KeyboardAvoidingView, Image } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useTheme, MD3Colors } from "react-native-paper";
+import { Link } from "expo-router";
+import Header from "@/components/Header";
+import RegistrationForm from "@/components/forms/RegistrationForm";
 
 export default function RegisterScreen() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const login = useAuthStore((state) => state.login);
-
-  const handleRegister = async () => {
-    if (!name || !email || !password) {
-      Alert.alert("Error", "All fields required");
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const { data } = await authApi.register(name, email, password);
-      await login(data.token, data.user);
-
-      Alert.alert("Success", "Registration successful!");
-      router.replace("/(tabs)");
-    } catch (error: any) {
-      Alert.alert("Error", error.response?.data?.error || "Registration failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const theme = useTheme();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Register</Text>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView behavior="position">
+        <Header title="" backLink />
+        <View style={styles.heroContainer}>
+          <Image source={require("@/assets/images/splash-icon.png")} style={styles.heroImage} />
+          <Text style={styles.heroTitle}>Create an Account</Text>
+          <Text style={styles.heroSubtitle}>Find your next Opportunity</Text>
+        </View>
 
-      <TextInput style={styles.input} placeholder="Name" value={name} onChangeText={setName} />
+        <RegistrationForm />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        keyboardType="email-address"
-      />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-
-      <TouchableOpacity style={styles.button} onPress={handleRegister} disabled={loading}>
-        <Text style={styles.buttonText}>{loading ? "Loading..." : "Register"}</Text>
-      </TouchableOpacity>
-    </View>
+        <Text style={{ paddingTop: 30, color: theme.colors.outline }}>
+          Already have an account?{" "}
+          <Link style={{ color: theme.colors.primary }} href="/auth/login">
+            Log in
+          </Link>
+        </Text>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
@@ -66,33 +35,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     backgroundColor: "#fff",
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 30,
+  heroContainer: {
+    marginVertical: 30,
+    alignItems: "center",
+    justifyContent: "flex-start",
     textAlign: "center",
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 15,
-    fontSize: 16,
+  heroImage: {
+    height: 110,
+    width: 110,
   },
-  button: {
-    backgroundColor: "#14b8a6",
-    padding: 15,
-    borderRadius: 8,
-    marginTop: 10,
+  heroTitle: {
+    fontSize: 40,
   },
-  buttonText: {
-    color: "#fff",
-    textAlign: "center",
-    fontSize: 16,
-    fontWeight: "600",
+  heroSubtitle: {
+    fontSize: 18,
+    color: MD3Colors.neutral50,
   },
 });
