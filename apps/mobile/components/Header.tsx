@@ -1,8 +1,8 @@
-import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 import { useAuthStore } from "@/stores/authStore";
 import { Link, usePathname } from "expo-router";
-import colors from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
+import { Button, useTheme } from "react-native-paper";
 
 interface HeaderProps {
   title: string;
@@ -12,13 +12,14 @@ interface HeaderProps {
 export default function Header({ title, backLink }: HeaderProps) {
   const { isLoggedIn } = useAuthStore();
   const pathName = usePathname();
+  const theme = useTheme();
 
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         {backLink ? (
           <Link asChild href="..">
-            <Ionicons name="arrow-back-outline" size={24} style={styles.backLink} />
+            <Ionicons name="arrow-back-outline" size={24} style={{ color: theme.colors.primary }} />
           </Link>
         ) : (
           <Image source={require("@/assets/images/splash-icon.png")} style={styles.headerLogo} />
@@ -28,9 +29,7 @@ export default function Header({ title, backLink }: HeaderProps) {
 
       {isLoggedIn || pathName.startsWith("/auth") ? undefined : (
         <Link href="/auth/login" asChild>
-          <TouchableOpacity style={styles.link}>
-            <Text style={styles.linkText}>Login</Text>
-          </TouchableOpacity>
+          <Button mode="contained">Login</Button>
         </Link>
       )}
     </View>
@@ -54,25 +53,6 @@ const styles = StyleSheet.create({
     height: 42,
   },
   headerText: {
-    fontSize: 24,
-  },
-  link: {
-    backgroundColor: colors.accent,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 6,
-    height: 30,
-    width: 60,
-    paddingHorizontal: 20,
-    paddingInline: 10,
-  },
-  linkText: {
-    color: colors.background,
-    fontSize: 18,
-  },
-  backLink: {
-    paddingRight: 10,
-    color: colors.accent,
+    fontSize: 26,
   },
 });

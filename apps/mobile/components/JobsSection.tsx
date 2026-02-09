@@ -2,8 +2,6 @@ import { Link, RelativePathString } from "expo-router";
 import { PropsWithChildren } from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-import colors from "@/constants/Colors";
-
 interface JobSectionProps {
   title: string;
   link: RelativePathString;
@@ -37,11 +35,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
-    color: colors.text,
   },
   seeAll: {
     fontSize: 16,
-    color: colors.accent,
     fontWeight: "500",
   },
 });

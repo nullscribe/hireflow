@@ -8,20 +8,28 @@ export default class AuthController {
   constructor(private readonly authRepo: AuthRepository) {}
 
   handleLogin = async (
-    req: Request<{}, {}, LoginDTO>,
+    req: Request<Record<string, never>, AuthResponse | ErrorResponse, LoginDTO>,
     res: Response<AuthResponse | ErrorResponse>,
   ) => {
     try {
       const { email, password } = req.body;
       const result = await this.authRepo.login({ email, password } as LoginDTO);
       res.json(result);
-    } catch (error: any) {
-      res.status(401).json({ error: error.message });
+    } catch (error: unknown) {
+      let message = "Internal Server Error";
+      let status = 500;
+
+      if (error instanceof Error) {
+        message = error.message;
+        status = 401;
+      }
+
+      res.status(status).json({ error: message });
     }
   };
 
   handleRegistration = async (
-    req: Request<{}, {}, RegisterDTO>,
+    req: Request<Record<string, never>, AuthResponse | ErrorResponse, RegisterDTO>,
     res: Response<AuthResponse | ErrorResponse>,
   ) => {
     try {
@@ -30,8 +38,16 @@ export default class AuthController {
       const result = await this.authRepo.register({ name, email, password } as RegisterDTO);
 
       res.json(result);
-    } catch (error: any) {
-      res.status(400).json({ error: error.message });
+    } catch (error: unknown) {
+      let message = "Internal Server Error";
+      let status = 500;
+
+      if (error instanceof Error) {
+        message = error.message;
+        status = 400;
+      }
+
+      res.status(status).json({ error: message });
     }
   };
 }

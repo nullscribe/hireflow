@@ -1,16 +1,20 @@
+import type { EmployerResponse } from "./employer.js";
+
 export interface Job {
   id: number;
-  employerId: number;
   title: string;
   industry: string;
+  industryMaterialIconName: string | null;
   description: string;
   requirements: string | null;
+  responsibilities: string | null;
   jobType: "full-time" | "part-time" | "contract" | "internship";
   experienceLevel: "entry" | "mid" | "senior";
   location: string;
   salaryMin: number | null;
   salaryMax: number | null;
   category: string;
+  categoryMaterialIconName: string | null;
   status: "active" | "closed" | "draft";
   country: string;
   countryFlag: string;
@@ -18,6 +22,10 @@ export interface Job {
   deadline: Date | null;
   serviceCharge: string;
   postedAt: Date;
+}
+
+export interface JobResponse extends Omit<Job, "employerId"> {
+  employer?: EmployerResponse;
 }
 
 export interface JobFilters {
@@ -35,15 +43,11 @@ export interface JobFilters {
 }
 
 export interface JobListResponse {
-  jobs: Job[];
+  jobs: JobResponse[];
 }
 
 export interface JobDetailResponse {
-  job: Job;
-}
-
-export interface SavedJobsResponse {
-  jobs: Job[];
+  job: JobResponse;
 }
 
 export interface CountryGroup {
@@ -63,12 +67,4 @@ export interface CategoryGroup {
 
 export interface CategoryJobsResponse {
   categories: CategoryGroup[];
-}
-
-export interface FeaturedJobsResponse {
-  jobs: Job[];
-}
-
-export interface RecentJobsResponse {
-  jobs: Job[];
 }

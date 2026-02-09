@@ -26,9 +26,12 @@ export const candidates = pgTable("candidates", {
   email: varchar("email", { length: 255 }).notNull().unique(),
   password: text("password").notNull(),
   phone: varchar("phone", { length: 20 }),
+  avatarUrl: text("avatar_url"),
   resumeUrl: text("resume_url"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+export type SelectCandidate = typeof candidates.$inferSelect;
 
 export const candidatesRelations = relations(candidates, ({ many }) => ({
   applications: many(applications),
@@ -41,10 +44,13 @@ export const employers = pgTable("employers", {
   email: varchar("email", { length: 255 }).notNull().unique(),
   password: text("password").notNull(),
   companyName: varchar("company_name", { length: 255 }).notNull(),
+  avatarUrl: text("avatar_url"),
   companyWebsite: varchar("company_website", { length: 255 }),
   phone: varchar("phone", { length: 20 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+export type SelectEmployer = typeof employers.$inferSelect;
 
 export const employersRelations = relations(employers, ({ many }) => ({
   jobs: many(jobs),
@@ -57,14 +63,17 @@ export const jobs = pgTable("jobs", {
     .notNull(),
   title: varchar("title", { length: 255 }).notNull(),
   industry: varchar("industry_name", { length: 255 }).notNull(),
+  industryMaterialIconName: varchar("industry_m_icon_name", { length: 20 }),
   description: text("description").notNull(),
   requirements: text("requirements"),
+  responsibilities: text("responsibilities"),
   jobType: jobTypeEnum("job_type").notNull(),
   experienceLevel: experienceLevelEnum("experience_level").notNull(),
   location: varchar("location", { length: 255 }).notNull(),
   salaryMin: integer("salary_min"),
   salaryMax: integer("salary_max"),
   category: varchar("category", { length: 100 }).notNull(),
+  categoryMaterialIconName: varchar("category_m_icon_name", { length: 20 }),
   status: jobStatusEnum("status").default("active").notNull(),
   country: varchar("country", { length: 100 }).default("Bangladesh").notNull(),
   countryFlag: varchar("country_flag", { length: 10 }).default("🇧🇩").notNull(),
@@ -73,6 +82,8 @@ export const jobs = pgTable("jobs", {
   serviceCharge: varchar("service_charge", { length: 50 }).default("Free").notNull(),
   postedAt: timestamp("posted_at").defaultNow().notNull(),
 });
+
+export type SelectJob = typeof jobs.$inferSelect;
 
 export const jobsRelations = relations(jobs, ({ one, many }) => ({
   employer: one(employers, {
@@ -95,6 +106,8 @@ export const applications = pgTable("applications", {
   coverLetter: text("cover_letter"),
   appliedAt: timestamp("applied_at").defaultNow().notNull(),
 });
+
+export type SelectApplication = typeof applications.$inferSelect;
 
 export const applicationsRelations = relations(applications, ({ one }) => ({
   job: one(jobs, {

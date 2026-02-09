@@ -1,19 +1,20 @@
 import React from "react";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import colors from "@/constants/Colors";
 import { useAuthStore } from "@/stores/authStore";
+import { useTheme } from "react-native-paper";
 
 export default function TabLayout() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const theme = useTheme();
+
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: colors.accent,
+        tabBarActiveTintColor: theme.colors.primary,
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: colors.background,
-          borderTopColor: colors.border,
+          backgroundColor: theme.colors.background,
         },
       }}>
       <Tabs.Screen

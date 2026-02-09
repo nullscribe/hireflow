@@ -1,27 +1,28 @@
-import colors from "@/constants/Colors";
-import { View, ViewStyle, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import { Link } from "expo-router";
+import { useTheme } from "react-native-paper";
 
 interface CountryWiseJobCardProps {
   country: string;
   jobs: number;
   flagString: string;
-  containerStyle?: ViewStyle;
 }
 
-export default function CountryWiseJobCard({
-  country,
-  jobs,
-  flagString,
-  containerStyle,
-}: CountryWiseJobCardProps) {
+export default function CountryWiseJobCard({ country, jobs, flagString }: CountryWiseJobCardProps) {
+  const theme = useTheme();
   return (
-    <TouchableOpacity style={[styles.card, containerStyle]}>
+    <Link
+      href={`/jobs?country=${country}`}
+      style={[
+        styles.card,
+        { backgroundColor: theme.colors.surface, borderColor: theme.colors.primary },
+      ]}>
       <View style={styles.flagContainer}>
         <Text style={styles.flagText}>{flagString}</Text>
       </View>
       <Text style={styles.countryName}>{country}</Text>
       <Text style={styles.jobCount}>{jobs} Jobs</Text>
-    </TouchableOpacity>
+    </Link>
   );
 }
 
@@ -31,7 +32,6 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 40,
     borderWidth: 1,
-    borderColor: colors.border,
     marginBottom: 16,
   },
   flagContainer: {

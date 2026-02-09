@@ -2,31 +2,38 @@ import { singleton } from "tsyringe";
 import db from "../db/index.js";
 import { candidates, jobs, savedJobs } from "../db/schema.js";
 import { and, desc, eq, gte, ilike, lte, type SQL, sql } from "drizzle-orm";
-import type { CategoryGroup, CountryGroup, Job, JobFilters } from "@hireflow/types";
+import type { CategoryGroup, CountryGroup, JobFilters, JobResponse } from "@hireflow/types";
+import { toJobResponse, type SelectJobWithEmployer } from "../mappers/job.mapper.js";
 
 @singleton()
 export default class JobRepository {
-  async getAll(filters: JobFilters): Promise<Job[]> {
+  async getAll(filters: JobFilters): Promise<JobResponse[]> {
     const conditions = this.buildFilterConditions(filters);
-    const result: Job[] = await db
-      .select()
-      .from(jobs)
-      .where(and(...conditions))
-      .orderBy(desc(jobs.postedAt))
-      .limit(filters.limit ?? 10)
-      .offset(filters.offset ?? 0);
+    const result: SelectJobWithEmployer[] = await db.query.jobs.findMany({
+      where: and(...conditions, eq(jobs.status, "active")),
+      with: {
+        employer: true,
+      },
+      limit: filters.limit ?? 10,
+      offset: filters.offset ?? 0,
+    });
 
-    return result;
+    return result.map((item) => toJobResponse(item));
   }
 
-  async getById(id: number): Promise<Job> {
-    const [job]: Job[] = await db.select().from(jobs).where(eq(jobs.id, id));
+  async getById(id: number): Promise<JobResponse> {
+    const job: SelectJobWithEmployer | undefined = await db.query.jobs.findFirst({
+      where: and(eq(jobs.id, id), eq(jobs.status, "active")),
+      with: {
+        employer: true,
+      },
+    });
 
     if (job === undefined) {
       throw new Error(`Job with id=${id} not found`);
     }
 
-    return job;
+    return toJobResponse(job);
   }
 
   async saveJob(jobId: number, candidateId: number): Promise<void> {
@@ -52,13 +59,17 @@ export default class JobRepository {
     }
   }
 
-  async getSavedJob(candidateId: number): Promise<Job[]> {
+  async getSavedJob(candidateId: number): Promise<JobResponse[]> {
     const userWithSavedJobs = await db.query.candidates.findFirst({
       where: eq(candidates.id, candidateId),
       with: {
         savedJobs: {
           with: {
-            job: true,
+            job: {
+              with: {
+                employer: true,
+              },
+            },
           },
         },
       },
@@ -68,11 +79,11 @@ export default class JobRepository {
       throw new Error("User's saved jobs fetching failed");
     }
 
-    return userWithSavedJobs.savedJobs.map((elem) => elem.job);
+    return userWithSavedJobs.savedJobs.map((elem) => toJobResponse(elem.job));
   }
 
   async getCountryGroup(): Promise<CountryGroup[]> {
-    const result = await db
+    return db
       .select({
         country: jobs.country,
         countryFlag: jobs.countryFlag,
@@ -82,12 +93,10 @@ export default class JobRepository {
       .where(eq(jobs.status, "active"))
       .groupBy(jobs.country, jobs.countryFlag)
       .orderBy(desc(sql`count(*)`));
-
-    return result;
   }
 
   async getCategoryGroup(): Promise<CategoryGroup[]> {
-    const result = await db
+    return db
       .select({
         category: jobs.category,
         count: sql<number>`cast(count(*) as int)`,
@@ -96,30 +105,32 @@ export default class JobRepository {
       .where(eq(jobs.status, "active"))
       .groupBy(jobs.category)
       .orderBy(desc(sql`count(*)`));
-
-    return result;
   }
 
-  async getFeatured(): Promise<Job[]> {
-    const result = await db
-      .select()
-      .from(jobs)
-      .where(eq(jobs.isFeatured, true))
-      .orderBy(desc(jobs.postedAt))
-      .limit(10);
+  async getFeatured(): Promise<JobResponse[]> {
+    const featured: SelectJobWithEmployer[] = await db.query.jobs.findMany({
+      where: and(eq(jobs.status, "active"), eq(jobs.isFeatured, true)),
+      with: {
+        employer: true,
+      },
+      orderBy: desc(jobs.postedAt),
+      limit: 10,
+    });
 
-    return result;
+    return featured.map(toJobResponse);
   }
 
-  async getRecent(): Promise<Job[]> {
-    const result = await db
-      .select()
-      .from(jobs)
-      .where(eq(jobs.status, "active"))
-      .orderBy(desc(jobs.postedAt))
-      .limit(10);
+  async getRecent(): Promise<JobResponse[]> {
+    const recent: SelectJobWithEmployer[] = await db.query.jobs.findMany({
+      where: eq(jobs.status, "active"),
+      with: {
+        employer: true,
+      },
+      orderBy: desc(jobs.postedAt),
+      limit: 10,
+    });
 
-    return result;
+    return recent.map(toJobResponse);
   }
 
   private buildFilterConditions(filters: JobFilters) {
@@ -133,7 +144,7 @@ export default class JobRepository {
     if (filters.location) conditions.push(eq(jobs.location, filters.location));
     if (filters.salaryMin) conditions.push(gte(jobs.salaryMin, filters.salaryMin));
     if (filters.salaryMax) conditions.push(lte(jobs.salaryMax, filters.salaryMax));
-    if (filters.search) conditions.push(ilike(jobs.title, `%${filters.search}`));
+    if (filters.search) conditions.push(ilike(jobs.title, `%${filters.search}%`));
 
     return conditions;
   }

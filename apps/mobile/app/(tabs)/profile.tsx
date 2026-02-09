@@ -1,22 +1,12 @@
-import { useEffect } from "react";
-import { jobsApi } from "@/lib/apiService";
 import { View, StyleSheet, Text } from "react-native";
+import { useAuthStore } from "@/stores/authStore";
 
 export default function ProfileScreen() {
-  useEffect(() => {
-    jobsApi
-      .getById(1)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error.data);
-      });
-  }, []);
+  const user = useAuthStore((state) => state.user);
 
   return (
     <View style={styles.container}>
-      <Text>Profile Screen</Text>
+      <Text>Profile Screen {user?.name}</Text>
     </View>
   );
 }

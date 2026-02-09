@@ -1,19 +1,9 @@
-import { useState } from "react";
-import { Text, Image, StyleSheet, Alert, View, KeyboardAvoidingView } from "react-native";
-import { Link, router } from "expo-router";
-import { useAuthStore } from "@/stores/authStore";
-import { authApi } from "@/lib/apiService";
+import { Text, Image, StyleSheet, View, KeyboardAvoidingView } from "react-native";
+import { Link } from "expo-router";
 import Header from "@/components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Button, MD3Colors, SegmentedButtons, TextInput, useTheme } from "react-native-paper";
-import LoginForm from "@/components/forms/LoginForm";
-
-interface LoginFormData {
-  email: string;
-  error: boolean;
-  password: string;
-  user: "candidate" | "employer";
-}
+import { MD3Colors, useTheme } from "react-native-paper";
+import LoginForm from "@/components/Forms/LoginForm";
 
 export default function LoginScreen() {
   const theme = useTheme();
@@ -31,7 +21,7 @@ export default function LoginScreen() {
         <LoginForm />
 
         <Text style={{ paddingTop: 30, color: theme.colors.outline }}>
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link style={{ color: theme.colors.primary }} href="/auth/register">
             Sign up
           </Link>

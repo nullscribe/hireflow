@@ -1,11 +1,11 @@
-import { ActivityIndicator, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
+import { ActivityIndicator } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import colors from "@/constants/Colors";
 
 export default function CenteredActivityIndicator() {
   return (
     <SafeAreaView style={[styles.container, styles.horizontal]}>
-      <ActivityIndicator size="large" color={colors.accent} />
+      <ActivityIndicator size="large" />
     </SafeAreaView>
   );
 }

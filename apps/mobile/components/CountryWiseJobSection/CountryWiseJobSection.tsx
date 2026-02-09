@@ -3,7 +3,6 @@ import { View, StyleSheet } from "react-native";
 import type { CountryGroup } from "@hireflow/types";
 import CountryWiseJobCard from "./CountryWiseJobCard";
 import JobsSection from "../JobsSection";
-import colors from "@/constants/Colors";
 
 export default function CountryWiseJobSection({ countries }: { countries: CountryGroup[] }) {
   return (
@@ -15,7 +14,6 @@ export default function CountryWiseJobSection({ countries }: { countries: Countr
             country={item.country}
             jobs={item.count}
             flagString={item.countryFlag}
-            containerStyle={styles.cardContainer}
           />
         ))}
       </View>
@@ -28,8 +26,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-  },
-  cardContainer: {
-    backgroundColor: colors.cardBackground,
   },
 });

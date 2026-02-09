@@ -6,6 +6,6 @@ export interface BasicApiResponse {
   message: string;
 }
 
-export * from "./healthCheck";
-export * from "./auth";
-export * from "./job";
+export * from "./healthCheck.js";
+export * from "./auth.js";
+export * from "./job.js";

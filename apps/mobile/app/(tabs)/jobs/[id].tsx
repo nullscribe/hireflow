@@ -1,21 +1,53 @@
-import { StyleSheet, View, Text } from "react-native";
+import CenteredActivityIndicator from "@/components/CenteredActivityIndicator";
+import Header from "@/components/Header";
+import JobApplyFooter from "@/components/JobDetails/JobApplyFooter";
+import JobDetailsTabs from "@/components/JobDetails/JobDetailsTabs";
+import JobHeaderCard from "@/components/JobDetails/JobHeaderCard/index";
+import useJob from "@/hooks/useJob";
+import { useLocalSearchParams, useNavigation } from "expo-router";
+import { useEffect } from "react";
+import { StyleSheet } from "react-native";
+import { MD3Colors } from "react-native-paper";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function JobDetailsScreen() {
+  const navigation = useNavigation();
+
+  const params = useLocalSearchParams();
+  const { data: job, loading } = useJob(Number(params["id"]));
+
+  useEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: { display: "none" },
+    });
+
+    return () => {
+      navigation.getParent()?.setOptions({
+        tabBarStyle: { display: "flex" },
+      });
+    };
+  }, [navigation]);
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Job Details Screen</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Header backLink title="" />
+      <JobHeaderCard job={job} loading={loading} />
+      <JobDetailsTabs job={job} loading={loading} />
+
+      <JobApplyFooter
+        onSave={() => console.log("save")}
+        onApply={() => console.log("apply")}
+        loading={loading}
+      />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
+    justifyContent: "space-between",
+    padding: 10,
+    backgroundColor: MD3Colors.neutral100,
   },
 });

@@ -7,7 +7,8 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "start:api": "node apps/api/dist/app.js"
+    "start:api": "node apps/api/dist/app.js",
+    "prebuild:mobile": "yarn workspace mobile expo prebuild --platform android --clean"
   },
   "devDependencies": {
     "prettier": "^3.8.1",

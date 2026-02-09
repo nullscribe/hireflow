@@ -3,6 +3,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { MD3LightTheme as DefaultTheme, PaperProvider } from "react-native-paper";
 import { StatusBar } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -31,15 +32,17 @@ const theme = {
 
 export default function RootLayout() {
   return (
-    <PaperProvider theme={theme}>
-      <StatusBar animated barStyle="dark-content" />
-      <SafeAreaProvider>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="auth/login" />
-          <Stack.Screen name="auth/register" />
-        </Stack>
-      </SafeAreaProvider>
-    </PaperProvider>
+    <GestureHandlerRootView>
+      <PaperProvider theme={theme}>
+        <StatusBar animated barStyle="dark-content" />
+        <SafeAreaProvider>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="auth/login" />
+            <Stack.Screen name="auth/register" />
+          </Stack>
+        </SafeAreaProvider>
+      </PaperProvider>
+    </GestureHandlerRootView>
   );
 }

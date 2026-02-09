@@ -4,11 +4,9 @@ import type {
   JobDetailResponse,
   AuthResponse,
   JobListResponse,
-  FeaturedJobsResponse,
-  RecentJobsResponse,
   CountryJobsResponse,
-  SavedJobsResponse,
   CategoryJobsResponse,
+  JobFilters,
 } from "@hireflow/types";
 
 export const authApi = {
@@ -20,17 +18,17 @@ export const authApi = {
 };
 
 export const jobsApi = {
-  getAll: () => api.get<JobListResponse>("/jobs"),
+  getAll: (filters?: JobFilters) => api.get<JobListResponse>("/jobs", { params: filters }),
 
   getById: (id: number) => api.get<JobDetailResponse>(`/jobs/${id}`),
 
   saveJob: (id: number) => api.post<BasicApiResponse>(`/jobs/${id}/save`),
 
-  getSavedJobs: () => api.get<SavedJobsResponse>("/jobs/saved"),
+  getSavedJobs: () => api.get<JobListResponse>("/jobs/saved"),
 
-  getFeaturedJobs: () => api.get<FeaturedJobsResponse>("/jobs/featured"),
+  getFeaturedJobs: () => api.get<JobListResponse>("/jobs/featured"),
 
-  getRecentJobs: () => api.get<RecentJobsResponse>("/jobs/recent"),
+  getRecentJobs: () => api.get<JobListResponse>("/jobs/recent"),
 
   getCountries: () => api.get<CountryJobsResponse>("/jobs/countries"),
 

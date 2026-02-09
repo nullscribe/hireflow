@@ -3,7 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme, MD3Colors } from "react-native-paper";
 import { Link } from "expo-router";
 import Header from "@/components/Header";
-import RegistrationForm from "@/components/forms/RegistrationForm";
+import RegistrationForm from "@/components/Forms/RegistrationForm";
 
 export default function RegisterScreen() {
   const theme = useTheme();

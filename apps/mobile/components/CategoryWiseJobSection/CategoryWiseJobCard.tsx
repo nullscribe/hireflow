@@ -1,33 +1,34 @@
-import colors from "@/constants/Colors";
-import { ViewStyle, View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import { useTheme } from "react-native-paper";
 
 interface CategoryWiseJobCardProps {
   category: string;
   jobs: number;
-  containerStyle?: ViewStyle;
 }
 
-export default function CategoryWiseJobCard({
-  category,
-  jobs,
-  containerStyle,
-}: CategoryWiseJobCardProps) {
+export default function CategoryWiseJobCard({ category, jobs }: CategoryWiseJobCardProps) {
+  const theme = useTheme();
   return (
-    <View style={[styles.container, containerStyle]}>
-      <Text style={styles.text}>{category}</Text>
-      <Text style={styles.text}>{jobs}</Text>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: theme.colors.secondaryContainer, borderColor: theme.colors.primary },
+      ]}>
+      <Text style={{ color: theme.colors.primary }}>{category}</Text>
+      <Text style={{ color: theme.colors.primary }}>{jobs}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.accentBackground,
-    borderColor: colors.accent,
     borderWidth: 1,
     borderRadius: 6,
-  },
-  text: {
-    color: colors.accentText,
+    minWidth: 48,
+    flexDirection: "row",
+    flexGrow: 1,
+    alignItems: "center",
+    padding: 10,
+    justifyContent: "space-between",
   },
 });
