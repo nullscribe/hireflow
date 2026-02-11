@@ -1,5 +1,4 @@
-import CenteredActivityIndicator from "@/components/CenteredActivityIndicator";
-import Header from "@/components/Header";
+import ScreenHeader from "@/components/ScreenHeader";
 import JobApplyFooter from "@/components/JobDetails/JobApplyFooter";
 import JobDetailsTabs from "@/components/JobDetails/JobDetailsTabs";
 import JobHeaderCard from "@/components/JobDetails/JobHeaderCard/index";
@@ -30,7 +29,7 @@ export default function JobDetailsScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header backLink title="" />
+      <ScreenHeader backLink />
       <JobHeaderCard job={job} loading={loading} />
       <JobDetailsTabs job={job} loading={loading} />
 
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
-    padding: 10,
+    padding: 12,
     backgroundColor: MD3Colors.neutral100,
   },
 });

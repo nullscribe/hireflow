@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import ScreenHeader from "@/components/ScreenHeader";
 import { MD3Colors, useTheme } from "react-native-paper";
 import { useMemo, useRef } from "react";
 import { StyleSheet, Text } from "react-native";
@@ -48,7 +48,7 @@ export default function ExploreScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Explore Jobs" backLink={false} />
+      <ScreenHeader backLink={false} />
       <SearchHeader
         searchQ={appliedFilters.search ?? ""}
         searchQChange={(q: string) =>
@@ -91,7 +91,10 @@ export default function ExploreScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    paddingLeft: 12,
+    paddingTop: 12,
+    paddingRight: 12,
+    paddingBottom: 0,
     backgroundColor: MD3Colors.neutral100,
   },
   jobCount: { fontWeight: "600", paddingLeft: 20, paddingTop: 10 },

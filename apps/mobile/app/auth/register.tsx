@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, KeyboardAvoidingView, Image } from "react-nativ
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme, MD3Colors } from "react-native-paper";
 import { Link } from "expo-router";
-import Header from "@/components/Header";
+import ScreenHeader from "@/components/ScreenHeader";
 import RegistrationForm from "@/components/Forms/RegistrationForm";
 
 export default function RegisterScreen() {
@@ -11,7 +11,7 @@ export default function RegisterScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior="position">
-        <Header title="" backLink />
+        <ScreenHeader backLink />
         <View style={styles.heroContainer}>
           <Image source={require("@/assets/images/splash-icon.png")} style={styles.heroImage} />
           <Text style={styles.heroTitle}>Create an Account</Text>
@@ -34,7 +34,7 @@ export default function RegisterScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 12,
     justifyContent: "flex-start",
     backgroundColor: "#fff",
   },

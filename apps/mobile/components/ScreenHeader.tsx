@@ -4,12 +4,11 @@ import { Link, usePathname } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Button, useTheme } from "react-native-paper";
 
-interface HeaderProps {
-  title: string;
+interface ScreenHeaderProps {
   backLink: boolean;
 }
 
-export default function Header({ title, backLink }: HeaderProps) {
+export default function ScreenHeader({ backLink }: ScreenHeaderProps) {
   const { isLoggedIn } = useAuthStore();
   const pathName = usePathname();
   const theme = useTheme();
@@ -24,12 +23,14 @@ export default function Header({ title, backLink }: HeaderProps) {
         ) : (
           <Image source={require("@/assets/images/splash-icon.png")} style={styles.headerLogo} />
         )}
-        <Text style={styles.headerText}>{title}</Text>
+        <Text style={{ fontSize: 24, fontWeight: "800", color: theme.colors.primary }}>
+          HireFlow
+        </Text>
       </View>
 
       {isLoggedIn || pathName.startsWith("/auth") ? undefined : (
         <Link href="/auth/login" asChild>
-          <Button mode="contained">Login</Button>
+          <Button mode="text">Sign In</Button>
         </Link>
       )}
     </View>
@@ -49,10 +50,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   headerLogo: {
-    width: 42,
-    height: 42,
-  },
-  headerText: {
-    fontSize: 26,
+    width: 36,
+    height: 36,
   },
 });

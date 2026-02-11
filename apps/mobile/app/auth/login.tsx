@@ -1,6 +1,6 @@
 import { Text, Image, StyleSheet, View, KeyboardAvoidingView } from "react-native";
 import { Link } from "expo-router";
-import Header from "@/components/Header";
+import ScreenHeader from "@/components/ScreenHeader";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MD3Colors, useTheme } from "react-native-paper";
 import LoginForm from "@/components/Forms/LoginForm";
@@ -11,7 +11,7 @@ export default function LoginScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior="position">
-        <Header title="" backLink />
+        <ScreenHeader backLink />
         <View style={styles.heroContainer}>
           <Image source={require("@/assets/images/splash-icon.png")} style={styles.heroImage} />
           <Text style={styles.heroTitle}>Welcome Back</Text>
@@ -34,7 +34,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 12,
     backgroundColor: "white",
   },
   heroContainer: {

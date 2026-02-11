@@ -3,21 +3,30 @@ import { StyleSheet, Text, TextStyle, View, ViewStyle } from "react-native";
 import { MD3Colors, useTheme } from "react-native-paper";
 import { formatCompactNumber } from "@/utils/formatNumber";
 import { SCREEN_WIDTH } from "@gorhom/bottom-sheet";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { JobFilters } from "@hireflow/types";
 
 interface SalaryRangeSliderProps {
   containerStyle: ViewStyle;
   labelStyle: TextStyle;
   onChangeFinish: (value: number[]) => void;
+  filters: JobFilters;
 }
 
 export default function SalaryRangeSlider({
   containerStyle,
   labelStyle,
   onChangeFinish,
+  filters,
 }: SalaryRangeSliderProps) {
   const [salaryMin, setSalaryMin] = useState(0);
   const [salaryMax, setSalaryMax] = useState(100_000);
+
+  useEffect(() => {
+    setSalaryMin(filters.salaryMin ?? 0);
+    setSalaryMax(filters.salaryMax ?? 100_000);
+  }, [filters]);
+
   return (
     <View style={containerStyle}>
       <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%" }}>

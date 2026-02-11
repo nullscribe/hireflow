@@ -1,10 +1,12 @@
 import React from "react";
 import ContentLoader, { Rect, Circle } from "react-content-loader/native";
 import { View, Dimensions } from "react-native";
+import { useTheme } from "react-native-paper";
 
 const windowWidth = Dimensions.get("window").width;
 
 export default function JobCardLoader() {
+  const theme = useTheme();
   const Loader = ContentLoader as any;
 
   const cardWidth = windowWidth - 20;
@@ -12,14 +14,14 @@ export default function JobCardLoader() {
   return (
     <View style={{ marginBottom: 30 }}>
       <Loader
-        speed={2}
+        speed={1.2}
         width={cardWidth}
-        height={70} // Matches your title + company + capsules height
+        height={70}
         viewBox={`0 0 ${cardWidth} 70`}
-        backgroundColor="#f3f3f3"
-        foregroundColor="#ecebeb">
+        backgroundColor={theme.colors.surfaceVariant}
+        foregroundColor={theme.colors.surface}>
         {/* Avatar size={42} */}
-        <Circle cx="21" cy="21" r="21" />
+        <Circle cx="21" cy="34" r="21" />
 
         {/* Info Container: Starts at x=57 (42px avatar + 15px gap) */}
         {/* Job Title */}

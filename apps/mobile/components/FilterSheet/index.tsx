@@ -51,6 +51,7 @@ export default function FilterSheet({
         <SalaryRangeSlider
           containerStyle={styles.inputSegment}
           labelStyle={styles.label}
+          filters={filters}
           onChangeFinish={(values: number[]) =>
             setFilters({ ...filters, salaryMin: values[0], salaryMax: values[1] })
           }

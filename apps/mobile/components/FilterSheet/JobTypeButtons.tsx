@@ -19,24 +19,25 @@ export default function JobTypeButtons({
     <View style={containerStyle}>
       <Text style={labelStyle}>Job Type</Text>
       <SegmentedButtons
+        density="small"
         value={filters.jobType as string}
         onValueChange={onValueChange}
         buttons={[
           {
             value: "full-time",
-            label: "Full Time",
+            label: "Full time",
           },
           {
             value: "part-time",
-            label: "Part Time",
+            label: "Part time",
+          },
+          {
+            value: "internship",
+            label: "Intern",
           },
           {
             value: "contract",
             label: "Contract",
-          },
-          {
-            value: "internship",
-            label: "Internship",
           },
         ]}
       />

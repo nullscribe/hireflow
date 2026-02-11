@@ -4,7 +4,7 @@ export interface Job {
   id: number;
   title: string;
   industry: string;
-  industryMaterialIconName: string | null;
+  industryMaterialIconName: string;
   description: string;
   requirements: string | null;
   responsibilities: string | null;
@@ -14,7 +14,7 @@ export interface Job {
   salaryMin: number | null;
   salaryMax: number | null;
   category: string;
-  categoryMaterialIconName: string | null;
+  categoryMaterialIconName: string;
   status: "active" | "closed" | "draft";
   country: string;
   countryFlag: string;
@@ -62,6 +62,7 @@ export interface CountryJobsResponse {
 
 export interface CategoryGroup {
   category: string;
+  icon_name: string;
   count: number;
 }
 

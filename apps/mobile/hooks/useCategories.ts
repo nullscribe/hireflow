@@ -1,9 +1,9 @@
 import { jobsApi } from "@/lib/apiService";
-import type { JobFilters, JobResponse } from "@hireflow/types";
+import type { CategoryGroup } from "@hireflow/types";
 import { useEffect, useState } from "react";
 
-export default function useJobs(filters: JobFilters) {
-  const [data, setData] = useState<JobResponse[]>([]);
+export default function useCategories() {
+  const [data, setData] = useState<CategoryGroup[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -13,9 +13,9 @@ export default function useJobs(filters: JobFilters) {
       setError(null);
 
       try {
-        const res = await jobsApi.getAll(filters);
+        const res = await jobsApi.getCategories();
 
-        setData(res.data.jobs);
+        setData(res.data.categories);
       } catch (err) {
         setError(err as Error);
       } finally {
@@ -24,7 +24,11 @@ export default function useJobs(filters: JobFilters) {
     }
 
     run();
-  }, [JSON.stringify(filters)]);
+  }, []);
 
-  return { data, loading, error };
+  return {
+    data,
+    loading,
+    error,
+  };
 }

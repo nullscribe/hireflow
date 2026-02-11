@@ -19,6 +19,7 @@ export default function ExperienceButtons({
     <View style={containerStyle}>
       <Text style={labelStyle}>Experience Level</Text>
       <SegmentedButtons
+        density="small"
         value={filters.experienceLevel as string}
         onValueChange={onValueChange}
         buttons={[

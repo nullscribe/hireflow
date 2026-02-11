@@ -99,11 +99,12 @@ export default class JobRepository {
     return db
       .select({
         category: jobs.category,
+        icon_name: jobs.categoryMaterialIconName,
         count: sql<number>`cast(count(*) as int)`,
       })
       .from(jobs)
       .where(eq(jobs.status, "active"))
-      .groupBy(jobs.category)
+      .groupBy(jobs.category, jobs.categoryMaterialIconName)
       .orderBy(desc(sql`count(*)`));
   }
 
