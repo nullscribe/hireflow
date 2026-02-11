@@ -10,20 +10,24 @@ import HomeHeroCard from "@/components/HomeHeroCard";
 import FeaturedJobSection from "@/components/JobSection/FeaturedJobSection";
 import useCategories from "@/hooks/useCategories";
 import useJobs from "@/hooks/useJobs";
+import useTopEmployers from "@/hooks/useTopEmployers";
+import TopCompaniesSection from "@/components/JobSection/TopCompaniesSection";
 
 export default function HomeScreen() {
   const { data: countries, loading: countriesLoading } = useCountries();
   const { data: categories, loading: categoriesLoading } = useCategories();
   const { data: featuredJobs, loading: featuredJobsLoading } = useJobs({ isFeatured: true });
+  const { data: topEmployers, loading: topEmployersLoading } = useTopEmployers();
 
   return (
     <SafeAreaView style={styles.container}>
       <ScreenHeader backLink={false} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <HomeHeroCard />
-        <FeaturedJobSection jobs={featuredJobs} loading={featuredJobsLoading} />
+        <FeaturedJobSection jobs={featuredJobs} loading={true} />
         <CountryWiseJobsSection countries={countries} loading={countriesLoading} />
         <CategoryWiseJobSection categories={categories} loading={categoriesLoading} />
+        <TopCompaniesSection employers={topEmployers} loading={topEmployersLoading} />
       </ScrollView>
     </SafeAreaView>
   );

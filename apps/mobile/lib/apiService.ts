@@ -7,6 +7,7 @@ import type {
   CountryJobsResponse,
   CategoryJobsResponse,
   JobFilters,
+  EmployerJobCountResponse,
 } from "@hireflow/types";
 
 export const authApi = {
@@ -33,4 +34,8 @@ export const jobsApi = {
   getCountries: () => api.get<CountryJobsResponse>("/jobs/countries"),
 
   getCategories: () => api.get<CategoryJobsResponse>("/jobs/categories"),
+};
+
+export const employersApi = {
+  getTop: () => api.get<EmployerJobCountResponse>("/employers/top"),
 };

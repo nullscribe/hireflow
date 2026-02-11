@@ -2,7 +2,7 @@ import { PropsWithChildren, ReactNode } from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Icon, useTheme } from "react-native-paper";
 
-interface JobSectionProps {
+interface HomeSectionProps {
   title: string;
   icon_name: string;
   onExpandBtnClick: () => void;
@@ -19,7 +19,7 @@ export default function HomeSection({
   loading,
   loader,
   children,
-}: PropsWithChildren<JobSectionProps>) {
+}: PropsWithChildren<HomeSectionProps>) {
   const theme = useTheme();
 
   return (

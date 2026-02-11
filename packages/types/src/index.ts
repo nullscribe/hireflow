@@ -9,3 +9,4 @@ export interface BasicApiResponse {
 export * from "./healthCheck.js";
 export * from "./auth.js";
 export * from "./job.js";
+export * from "./employer.js";

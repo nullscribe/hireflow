@@ -2,7 +2,7 @@ import { StyleSheet, ScrollView } from "react-native";
 import type { JobResponse } from "@hireflow/types";
 import HomeSection from "../HomeSection";
 import FeaturedJobCard from "./FeaturedJobCard";
-import JobSectionLoader from "../JobSectionLoader";
+import FeaturedJobSectionLoader from "./FeaturedJobSectionLoader";
 
 interface FeaturedJobSectionProps {
   jobs: JobResponse[];
@@ -16,11 +16,11 @@ export default function FeaturedJobSection({ jobs, loading }: FeaturedJobSection
       icon_name="check-decagram"
       isExpanded={false}
       loading={loading}
-      loader={<JobSectionLoader />}
+      loader={<FeaturedJobSectionLoader />}
       onExpandBtnClick={() => console.log("Go to Featured Jobs")}>
       <ScrollView style={styles.grid} horizontal>
         {jobs.slice(0, 3).map((item) => (
-          <FeaturedJobCard job={item} key={item.id} loading={loading} />
+          <FeaturedJobCard job={item} key={item.id} />
         ))}
       </ScrollView>
     </HomeSection>

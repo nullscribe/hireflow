@@ -16,7 +16,7 @@ export default function CountryWiseJobSection({ countries, loading }: CountryWis
 
   return (
     <HomeSection
-      title="Country-wise jobs"
+      title="Country wise jobs"
       icon_name="earth"
       isExpanded={isExpanded}
       loading={loading}

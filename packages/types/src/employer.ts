@@ -11,3 +11,14 @@ export interface Employer {
 }
 
 export type EmployerResponse = Omit<Employer, "password">;
+
+export interface EmployerJobCount extends Pick<
+  EmployerResponse,
+  "id" | "companyName" | "avatarUrl"
+> {
+  jobCount: number;
+}
+
+export interface EmployerJobCountResponse {
+  employers: EmployerJobCount[];
+}
