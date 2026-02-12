@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactNode } from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, Pressable } from "react-native";
 import { Icon, useTheme } from "react-native-paper";
 
 interface HomeSectionProps {
@@ -29,15 +29,11 @@ export default function HomeSection({
           <Icon source={icon_name} size={20} color={theme.colors.primary} />
           <Text style={styles.title}>{title}</Text>
         </View>
-        <TouchableOpacity
-          disabled={loading}
-          onPress={onExpandBtnClick}
-          activeOpacity={0.99}
-          hitSlop={10}>
+        <Pressable disabled={loading} onPress={onExpandBtnClick} hitSlop={10}>
           <Text style={{ color: theme.colors.primary, fontSize: 12, fontWeight: "500" }}>
             {isExpanded ? "SHOW LESS" : "SHOW MORE"}
           </Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
       {loading ? loader : children}
     </View>

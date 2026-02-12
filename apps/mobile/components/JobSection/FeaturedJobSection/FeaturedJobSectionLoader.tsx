@@ -19,32 +19,36 @@ export default function FeaturedJobSectionLoader() {
         backgroundColor="#F1F5F9" // Matches slate-100 / neutral
         foregroundColor="#E2E8F0" // Matches slate-200
       >
-        {/* --- FIRST CARD --- */}
-        {/* Main Card Background */}
-
         {/* Avatar Icon (size 38) */}
-        <Circle cx={PADDING + 10} cy={PADDING + 10} r="19" />
+        <Circle cx={PADDING + 10 - 10} cy={PADDING + 10 + 10} r="19" />
 
         {/* Job Title */}
-        <Rect x={PADDING - 5} y={PADDING + 38} rx="4" ry="4" width="140" height="18" />
+        <Rect x={PADDING - 8 - 10} y={PADDING + 38 + 10} rx="4" ry="4" width="140" height="18" />
 
         {/* Company • Location */}
-        <Rect x={PADDING - 5} y={PADDING + 38 + 18 + 6} rx="3" ry="3" width="180" height="14" />
+        <Rect
+          x={PADDING - 8 - 10}
+          y={PADDING + 38 + 18 + 15}
+          rx="3"
+          ry="3"
+          width="180"
+          height="14"
+        />
 
         {/* Salary Badge */}
         <Rect
-          x={PADDING - 5}
-          y={CARD_HEIGHT - PADDING - 16}
+          x={PADDING - 8 - 10}
+          y={CARD_HEIGHT - PADDING - 45 + 10}
           rx="12"
           ry="12"
-          width="100"
-          height="24"
+          width="80"
+          height="20"
         />
 
         {/* Job Type Text */}
         <Rect
-          x={PADDING + 105}
-          y={CARD_HEIGHT - PADDING - 20}
+          x={PADDING + 80 - 10}
+          y={CARD_HEIGHT - PADDING - 43 + 10}
           rx="3"
           ry="3"
           width="60"
@@ -54,11 +58,11 @@ export default function FeaturedJobSectionLoader() {
         {/* --- SECOND CARD (Offset by CARD_WIDTH + SPACING) --- */}
 
         {/* Second Card Avatar */}
-        <Circle cx={CARD_WIDTH + SPACING + PADDING + 19} cy={PADDING + 19} r="19" />
+        <Circle cx={CARD_WIDTH + SPACING + PADDING + 10} cy={PADDING + 10 + 10} r="24" />
 
         {/* Second Card Title */}
         <Rect
-          x={CARD_WIDTH + SPACING + PADDING}
+          x={CARD_WIDTH + SPACING + PADDING - 8 - 10}
           y={PADDING + 38 + 10}
           rx="4"
           ry="4"
@@ -66,14 +70,34 @@ export default function FeaturedJobSectionLoader() {
           height="18"
         />
 
-        {/* Second Card Subtitle */}
+        {/* Company • Location */}
         <Rect
-          x={CARD_WIDTH + SPACING + PADDING}
-          y={PADDING + 38 + 10 + 18 + 6}
+          x={CARD_WIDTH + SPACING + PADDING - 8 - 10}
+          y={PADDING + 38 + 18 + 6 + 10}
           rx="3"
           ry="3"
           width="160"
           height="14"
+        />
+
+        {/* Salary Badge */}
+        <Rect
+          x={CARD_WIDTH + SPACING + PADDING - 8 - 10}
+          y={CARD_HEIGHT - PADDING - 45 + 10}
+          rx="12"
+          ry="12"
+          width="80"
+          height="20"
+        />
+
+        {/* Job Type Text */}
+        <Rect
+          x={CARD_WIDTH + SPACING + PADDING + 80 - 10}
+          y={CARD_HEIGHT - PADDING - 43 + 10}
+          rx="3"
+          ry="3"
+          width="60"
+          height="16"
         />
       </ContentLoader>
     </View>

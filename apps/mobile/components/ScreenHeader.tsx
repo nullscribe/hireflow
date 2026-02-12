@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image, Pressable } from "react-native";
 import { useAuthStore } from "@/stores/authStore";
 import { Link, usePathname } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,7 +18,13 @@ export default function ScreenHeader({ backLink }: ScreenHeaderProps) {
       <View style={styles.headerContainer}>
         {backLink ? (
           <Link asChild href="..">
-            <Ionicons name="arrow-back-outline" size={24} style={{ color: theme.colors.primary }} />
+            <Pressable hitSlop={50}>
+              <Ionicons
+                name="arrow-back-outline"
+                size={24}
+                style={{ color: theme.colors.primary }}
+              />
+            </Pressable>
           </Link>
         ) : (
           <Image source={require("@/assets/images/splash-icon.png")} style={styles.headerLogo} />

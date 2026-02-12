@@ -22,9 +22,9 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScreenHeader backLink={false} />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={true}>
         <HomeHeroCard />
-        <FeaturedJobSection jobs={featuredJobs} loading={true} />
+        <FeaturedJobSection jobs={featuredJobs} loading={featuredJobsLoading} />
         <CountryWiseJobsSection countries={countries} loading={countriesLoading} />
         <CategoryWiseJobSection categories={categories} loading={categoriesLoading} />
         <TopCompaniesSection employers={topEmployers} loading={topEmployersLoading} />

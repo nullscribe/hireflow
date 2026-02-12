@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { router } from "expo-router";
 import { MD3Colors } from "react-native-paper";
 import { ReactNode } from "react";
@@ -12,16 +12,13 @@ interface SectionJobCardProps {
 
 export default function SectionJobCard({ name, jobCount, Icon, filter }: SectionJobCardProps) {
   return (
-    <TouchableOpacity
-      onPress={() => router.push(`/jobs?${filter}=${name}`)}
-      activeOpacity={0.9}
-      style={styles.card}>
+    <Pressable onPress={() => router.push(`/jobs?${filter}=${name}`)} style={styles.card}>
       <View style={styles.nameContainer}>
         <View>{Icon}</View>
         <Text style={styles.name}>{name}</Text>
       </View>
       <Text style={styles.jobCount}>({jobCount})</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 

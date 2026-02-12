@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Pressable, StyleSheet } from "react-native";
 import { MD3Colors, Searchbar, useTheme } from "react-native-paper";
 
 interface SearchHeaderProps {
@@ -24,7 +24,7 @@ export default function SearchHeader({
         iconColor={theme.colors.primary}
         onChangeText={(val) => searchQChange(val)}
       />
-      <TouchableOpacity onPress={filterButtonOnPress}>
+      <Pressable onPress={filterButtonOnPress}>
         <Ionicons
           name="filter"
           size={28}
@@ -35,7 +35,7 @@ export default function SearchHeader({
             borderRadius: 12,
           }}
         />
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 }

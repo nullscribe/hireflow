@@ -1,7 +1,7 @@
 import { format } from "timeago.js";
 import { JobResponse } from "@hireflow/types";
 import { router } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, Pressable, View } from "react-native";
 import { Avatar, MD3Colors, useTheme } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -12,7 +12,7 @@ interface JobCardProps {
 export default function JobCard({ job }: JobCardProps) {
   const theme = useTheme();
   return (
-    <TouchableOpacity onPress={() => router.push(`/jobs/${job.id}`)} activeOpacity={0.9}>
+    <Pressable onPress={() => router.push(`/jobs/${job.id}`)}>
       <View style={styles.container}>
         <View style={styles.mainContainer}>
           <Avatar.Image
@@ -49,7 +49,7 @@ export default function JobCard({ job }: JobCardProps) {
           </Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 
