@@ -15,6 +15,11 @@ export default class EmployerController {
   handleGetById = async (req: Request, res: Response<EmployerDetailResponse | ErrorResponse>) => {
     try {
       const id = Number(req.params["id"]);
+
+      if (isNaN(id)) {
+        res.status(400).json({ error: "Given employer id is not a number" });
+      }
+
       const result = await this.employerRepo.getById(id);
 
       if (result === undefined) {

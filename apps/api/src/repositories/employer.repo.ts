@@ -35,7 +35,7 @@ export default class EmployerRepository {
     });
 
     if (result === undefined) {
-      throw new Error("employer not found");
+      return result;
     }
 
     return toEmployerWithJobsResponse(result);

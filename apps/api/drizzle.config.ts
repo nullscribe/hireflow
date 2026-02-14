@@ -6,6 +6,14 @@ export default defineConfig({
   schema: "./src/db/schema.ts",
   dialect: "postgresql",
   dbCredentials: {
-    url: process.env.DATABASE_URL!,
+    password: process.env.DB_PASSWORD!,
+    user: process.env.DB_USER!,
+    host: process.env.DB_HOST!,
+    port: Number(process.env.DB_PORT!),
+    database: process.env.DB_NAME!,
+    ssl: {
+      rejectUnauthorized: true,
+      ca: process.env.DB_CA_CERT!,
+    },
   },
 });

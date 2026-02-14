@@ -24,7 +24,7 @@ export interface JobDTO {
   postedAt: Date;
 }
 
-export interface JobResponse extends Omit<JobDTO, "employerId"> {
+export interface JobResponse extends JobDTO {
   employer?: EmployerDTO;
 }
 

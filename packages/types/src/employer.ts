@@ -1,4 +1,4 @@
-import { JobDTO } from "./job.js";
+import type { JobDTO } from "./job.js";
 
 export interface Employer {
   id: number;
