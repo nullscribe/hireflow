@@ -12,7 +12,7 @@ interface SectionJobCardProps {
 
 export default function SectionJobCard({ name, jobCount, Icon, filter }: SectionJobCardProps) {
   return (
-    <Pressable onPress={() => router.push(`/jobs?${filter}=${name}`)} style={styles.card}>
+    <Pressable onPress={() => router.push(`/explore?${filter}=${name}`)} style={styles.card}>
       <View style={styles.nameContainer}>
         <View>{Icon}</View>
         <Text style={styles.name}>{name}</Text>

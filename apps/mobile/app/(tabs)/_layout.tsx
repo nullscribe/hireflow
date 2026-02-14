@@ -25,7 +25,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="jobs"
+        name="explore"
         options={{
           title: "Explore",
           tabBarIcon: ({ color }) => <Ionicons name="search-outline" color={color} size={28} />,
@@ -37,7 +37,7 @@ export default function TabLayout() {
         options={{
           title: "Saved",
           href: isLoggedIn ? "/saved" : null,
-          tabBarIcon: ({ color }) => <Ionicons name="save-outline" color={color} size={28} />,
+          tabBarIcon: ({ color }) => <Ionicons name="folder-outline" color={color} size={28} />,
         }}
       />
 

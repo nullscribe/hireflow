@@ -1,8 +1,12 @@
 import { singleton } from "tsyringe";
-import type { EmployerJobCount } from "@hireflow/types";
+import type { EmployerDetailResponse, EmployerJobCount } from "@hireflow/types";
 import db from "../db/index.js";
 import { count, desc, eq } from "drizzle-orm";
 import { employers, jobs } from "../db/schema.js";
+import {
+  toEmployerWithJobsResponse,
+  type SelectEmployerWithJobs,
+} from "../mappers/employer.mapper.js";
 
 @singleton()
 export default class EmployerRepository {
@@ -20,5 +24,20 @@ export default class EmployerRepository {
       .orderBy(desc(count(jobs.id)))
       .limit(5);
     return result;
+  }
+
+  async getById(id: number): Promise<EmployerDetailResponse | undefined> {
+    const result: SelectEmployerWithJobs | undefined = await db.query.employers.findFirst({
+      where: eq(employers.id, id),
+      with: {
+        jobs: true,
+      },
+    });
+
+    if (result === undefined) {
+      throw new Error("employer not found");
+    }
+
+    return toEmployerWithJobsResponse(result);
   }
 }

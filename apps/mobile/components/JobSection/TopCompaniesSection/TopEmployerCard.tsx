@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import type { EmployerJobCount } from "@hireflow/types";
 import { Avatar, MD3Colors } from "react-native-paper";
+import { router } from "expo-router";
 
 interface TopEmployerCard {
   employerJobCount: EmployerJobCount;
@@ -8,20 +9,22 @@ interface TopEmployerCard {
 
 export default function TopEmployerCard({ employerJobCount }: TopEmployerCard) {
   return (
-    <View style={styles.container}>
-      <Avatar.Image
-        source={
-          employerJobCount.avatarUrl
-            ? { uri: employerJobCount.avatarUrl }
-            : require("../../../assets/images/company_avatar.png")
-        }
-        size={42}
-      />
-      <View style={styles.infoContainer}>
-        <Text style={styles.companyName}>{employerJobCount.companyName}</Text>
-        <Text style={styles.jobCount}>{employerJobCount.jobCount} Open Roles</Text>
+    <Pressable onPress={() => router.push(`/employers/${employerJobCount.id}`)}>
+      <View style={styles.container}>
+        <Avatar.Image
+          source={
+            employerJobCount.avatarUrl
+              ? { uri: employerJobCount.avatarUrl }
+              : require("../../../assets/images/company_avatar.png")
+          }
+          size={42}
+        />
+        <View style={styles.infoContainer}>
+          <Text style={styles.companyName}>{employerJobCount.companyName}</Text>
+          <Text style={styles.jobCount}>{employerJobCount.jobCount} Open Roles</Text>
+        </View>
       </View>
-    </View>
+    </Pressable>
   );
 }
 

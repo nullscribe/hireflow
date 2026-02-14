@@ -1,6 +1,6 @@
-import type { EmployerResponse } from "./employer.js";
+import type { EmployerDTO } from "./employer.js";
 
-export interface Job {
+export interface JobDTO {
   id: number;
   title: string;
   industry: string;
@@ -24,8 +24,8 @@ export interface Job {
   postedAt: Date;
 }
 
-export interface JobResponse extends Omit<Job, "employerId"> {
-  employer?: EmployerResponse;
+export interface JobResponse extends Omit<JobDTO, "employerId"> {
+  employer?: EmployerDTO;
 }
 
 export interface JobFilters {
@@ -37,6 +37,7 @@ export interface JobFilters {
   salaryMin?: number;
   salaryMax?: number;
   isFeatured?: boolean;
+  category?: string;
   search?: string;
   limit?: number;
   offset?: number;

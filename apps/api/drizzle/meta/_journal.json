@@ -43,6 +43,13 @@
       "when": 1770749168577,
       "tag": "0005_glamorous_power_man",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1770922678434,
+      "tag": "0006_next_baron_zemo",
+      "breakpoints": true
     }
   ]
 }
