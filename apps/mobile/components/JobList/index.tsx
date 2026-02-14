@@ -8,7 +8,7 @@ import EmptyJobList from "./EmptyJobList";
 interface JobListProps {
   jobs: JobResponse[] | null;
   loading: boolean;
-  onClearFilters: () => void;
+  onClearFilters?: () => void;
 }
 
 export default function JobList({ jobs, loading, onClearFilters }: JobListProps) {

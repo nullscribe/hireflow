@@ -1,13 +1,14 @@
 import api from "@/lib/api";
-import type {
-  BasicApiResponse,
-  JobDetailResponse,
-  AuthResponse,
-  JobListResponse,
-  CountryJobsResponse,
-  CategoryJobsResponse,
-  JobFilters,
-  EmployerJobCountResponse,
+import {
+  type BasicApiResponse,
+  type JobDetailResponse,
+  type AuthResponse,
+  type JobListResponse,
+  type CountryJobsResponse,
+  type CategoryJobsResponse,
+  type JobFilters,
+  type EmployerJobCountResponse,
+  EmployerDetailResponse,
 } from "@hireflow/types";
 
 export const authApi = {
@@ -38,4 +39,5 @@ export const jobsApi = {
 
 export const employersApi = {
   getTop: () => api.get<EmployerJobCountResponse>("/employers/top"),
+  getById: (id: number) => api.get<EmployerDetailResponse>(`/employers/${id}`),
 };

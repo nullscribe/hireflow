@@ -7,5 +7,6 @@ const employerController = container.resolve(EmployerController);
 const employerRouter = Router();
 
 employerRouter.get("/top", employerController.handleGetTop);
+employerRouter.get("/:id", employerController.handleGetById);
 
 export default employerRouter;

@@ -1,7 +1,11 @@
+import { JobDTO } from "./job.js";
+
 export interface Employer {
   id: number;
   name: string;
   email: string;
+  about: string;
+  employeeCount: number;
   password: string;
   companyName: string;
   avatarUrl: string | null;
@@ -10,12 +14,13 @@ export interface Employer {
   createdAt: Date;
 }
 
-export type EmployerResponse = Omit<Employer, "password">;
+export type EmployerDTO = Omit<Employer, "password">;
 
-export interface EmployerJobCount extends Pick<
-  EmployerResponse,
-  "id" | "companyName" | "avatarUrl"
-> {
+export interface EmployerDetailResponse extends EmployerDTO {
+  jobs: JobDTO[];
+}
+
+export interface EmployerJobCount extends Pick<EmployerDTO, "id" | "companyName" | "avatarUrl"> {
   jobCount: number;
 }
 

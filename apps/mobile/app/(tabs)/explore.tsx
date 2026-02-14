@@ -22,6 +22,7 @@ export default function ExploreScreen() {
       industry: params.industry as string,
       jobType: params.jobType as JobFilters["jobType"],
       experienceLevel: params.experienceLevel as JobFilters["experienceLevel"],
+      category: params.category as string,
       location: params.location as string,
       salaryMin: params.salaryMin ? Number(params.salaryMin) : undefined,
       salaryMax: params.salaryMax ? Number(params.salaryMax) : undefined,

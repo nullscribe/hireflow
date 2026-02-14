@@ -26,7 +26,9 @@ export default class JobController {
       if (req.query.jobType) filters.jobType = req.query.jobType as JobResponse["jobType"];
       if (req.query.experienceLevel)
         filters.experienceLevel = req.query.experienceLevel as JobResponse["experienceLevel"];
+      if (req.query.isFeatured) filters.isFeatured = Boolean(req.query.isFeatured);
       if (req.query.location) filters.location = req.query.location as string;
+      if (req.query.category) filters.category = req.query.category as string;
       if (req.query.salaryMin) filters.salaryMin = Number(req.query.salaryMin);
       if (req.query.salaryMax) filters.salaryMax = Number(req.query.salaryMax);
       if (req.query.limit) filters.limit = Number(req.query.limit);

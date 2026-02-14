@@ -142,6 +142,7 @@ export default class JobRepository {
     if (filters.industry) conditions.push(eq(jobs.industry, filters.industry));
     if (filters.jobType) conditions.push(eq(jobs.jobType, filters.jobType));
     if (filters.experienceLevel) conditions.push(eq(jobs.experienceLevel, filters.experienceLevel));
+    if (filters.category) conditions.push(eq(jobs.category, filters.category));
     if (filters.location) conditions.push(eq(jobs.location, filters.location));
     if (filters.salaryMin) conditions.push(gte(jobs.salaryMin, filters.salaryMin));
     if (filters.salaryMax) conditions.push(lte(jobs.salaryMax, filters.salaryMax));

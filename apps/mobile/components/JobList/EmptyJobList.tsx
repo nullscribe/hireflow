@@ -3,7 +3,7 @@ import { Text, Button, useTheme } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 
 interface EmptyJobListProps {
-  onClearFilters: () => void;
+  onClearFilters?: () => void;
 }
 
 export default function EmptyJobList({ onClearFilters }: EmptyJobListProps) {
