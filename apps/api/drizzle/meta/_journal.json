@@ -50,6 +50,13 @@
       "when": 1770922678434,
       "tag": "0006_next_baron_zemo",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1771254862035,
+      "tag": "0007_pale_harpoon",
+      "breakpoints": true
     }
   ]
 }

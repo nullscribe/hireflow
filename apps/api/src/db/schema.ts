@@ -36,12 +36,15 @@ export type SelectCandidate = typeof candidates.$inferSelect;
 export const candidatesRelations = relations(candidates, ({ many }) => ({
   applications: many(applications),
   savedJobs: many(savedJobs),
+  followedEmployers: many(employerFollows),
 }));
 
 export const employers = pgTable("employers", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull().unique(),
+  about: text("about").notNull().default(""),
+  employeeCount: integer("employee_count").notNull().default(50),
   password: text("password").notNull(),
   companyName: varchar("company_name", { length: 255 }).notNull(),
   avatarUrl: text("avatar_url"),
@@ -54,6 +57,7 @@ export type SelectEmployer = typeof employers.$inferSelect;
 
 export const employersRelations = relations(employers, ({ many }) => ({
   jobs: many(jobs),
+  followers: many(employerFollows),
 }));
 
 export const jobs = pgTable("jobs", {
@@ -139,5 +143,27 @@ export const savedJobsRelations = relations(savedJobs, ({ one }) => ({
   job: one(jobs, {
     fields: [savedJobs.jobId],
     references: [jobs.id],
+  }),
+}));
+
+export const employerFollows = pgTable("employer_follows", {
+  id: serial("id").primaryKey(),
+  candidateId: integer("candidate_id")
+    .references(() => candidates.id, { onDelete: "cascade" })
+    .notNull(),
+  employerId: integer("employee_id")
+    .references(() => employers.id, { onDelete: "cascade" })
+    .notNull(),
+  followedAt: timestamp("followed_at").defaultNow().notNull(),
+});
+
+export const employerFollowsRelations = relations(employerFollows, ({ one }) => ({
+  candidate: one(candidates, {
+    fields: [employerFollows.candidateId],
+    references: [candidates.id],
+  }),
+  employee: one(employers, {
+    fields: [employerFollows.employerId],
+    references: [employers.id],
   }),
 }));

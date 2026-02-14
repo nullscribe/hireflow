@@ -2,11 +2,12 @@ import { formatCompactNumber } from "@/utils/formatNumber";
 import ScreenHeader from "@/components/ScreenHeader";
 import useEmployer from "@/hooks/useEmployer";
 import { router, useLocalSearchParams } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, StyleSheet, Text, Pressable } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Avatar, Button, Icon, MD3Colors, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { format } from "timeago.js";
 
 export default function EmployerDetailsScreen() {
   const params = useLocalSearchParams();
@@ -16,9 +17,9 @@ export default function EmployerDetailsScreen() {
 
   const { data: employer, loading, error } = useEmployer(id);
 
-  if (isNaN(id) || error) {
-    router.replace("/+not-found");
-  }
+  useEffect(() => {
+    if (error || isNaN(id)) router.replace("/+not-found");
+  }, [id, error]);
 
   if (employer == null || loading) {
     return (
@@ -113,7 +114,7 @@ export default function EmployerDetailsScreen() {
                     </Text>
                   </View>
                   <View style={{ justifyContent: "flex-end", alignItems: "center" }}>
-                    <Text style={{ fontWeight: "300", fontSize: 14 }}>2 days ago</Text>
+                    <Text style={{ fontWeight: "300", fontSize: 14 }}>{format(job.postedAt)}</Text>
                   </View>
                 </View>
               </Pressable>
