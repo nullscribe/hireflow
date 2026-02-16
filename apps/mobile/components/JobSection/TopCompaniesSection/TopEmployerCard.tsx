@@ -3,11 +3,11 @@ import type { EmployerJobCount } from "@hireflow/types";
 import { Avatar, MD3Colors } from "react-native-paper";
 import { router } from "expo-router";
 
-interface TopEmployerCard {
+interface TopEmployerCardProps {
   employerJobCount: EmployerJobCount;
 }
 
-export default function TopEmployerCard({ employerJobCount }: TopEmployerCard) {
+export default function TopEmployerCard({ employerJobCount }: TopEmployerCardProps) {
   return (
     <Pressable onPress={() => router.push(`/employers/${employerJobCount.id}`)}>
       <View style={styles.container}>

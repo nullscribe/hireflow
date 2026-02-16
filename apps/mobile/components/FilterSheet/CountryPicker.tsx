@@ -1,5 +1,4 @@
 import useCountries from "@/hooks/useCountries";
-import { JobFilters } from "@hireflow/types";
 import { useMemo } from "react";
 import { Text, TextStyle, View, ViewStyle } from "react-native";
 import { useTheme } from "react-native-paper";

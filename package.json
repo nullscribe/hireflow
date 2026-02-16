@@ -8,9 +8,11 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "start:api": "node apps/api/dist/app.js",
-    "prebuild:mobile": "yarn workspace mobile expo prebuild --platform android --clean"
+    "prebuild:mobile": "yarn workspace mobile expo prebuild --platform android --clean",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
     "prettier": "^3.8.1",
     "turbo": "^2.7.6",
     "typescript": "5.9.2"
