@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { Text, StyleSheet, View } from "react-native";
-import { Button, Icon, useTheme } from "react-native-paper";
+import { Button, useTheme } from "react-native-paper";
 
 export default function HomeHeroCard() {
   const theme = useTheme();
