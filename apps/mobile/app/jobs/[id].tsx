@@ -5,7 +5,7 @@ import JobHeaderCard from "@/components/JobDetails/JobHeaderCard/index";
 import useJob from "@/hooks/useJob";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { useEffect } from "react";
-import { StyleSheet } from "react-native";
+import { Share, StyleSheet } from "react-native";
 import { MD3Colors } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -29,7 +29,21 @@ export default function JobDetailsScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScreenHeader backLink />
+      <ScreenHeader
+        backLink
+        rightIconName="share-variant-outline"
+        onPressRightIcon={() => {
+          if (!job?.id) return;
+          try {
+            Share.share({
+              message: `Check out this job on HireFlow: hireflowbd://jobs/${job.id}`,
+              url: `hireflowbd://jobs/${job?.id}`,
+            });
+          } catch (error) {
+            console.log(error);
+          }
+        }}
+      />
       <JobHeaderCard job={job} loading={loading} />
       <JobDetailsTabs job={job} loading={loading} />
 

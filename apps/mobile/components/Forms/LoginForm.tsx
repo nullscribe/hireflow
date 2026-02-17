@@ -1,4 +1,4 @@
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Keyboard } from "react-native";
 import { TextInput, SegmentedButtons, Button, Text } from "react-native-paper";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,10 +7,12 @@ import { useState } from "react";
 import { useAuthStore } from "@/stores/authStore";
 import { authApi } from "@/lib/apiService";
 import { router } from "expo-router";
+import { useSnackbar } from "@/contexts/SnackBarContext";
 
 export default function LoginForm() {
   const [user, setUser] = useState<"candidate" | "employer">("candidate");
   const login = useAuthStore((state) => state.login);
+  const { showSnackbar } = useSnackbar();
 
   const {
     control,
@@ -21,15 +23,16 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (formData: LoginType) => {
+    Keyboard.dismiss();
     try {
       const { data } = await authApi.login(formData.email, formData.password);
 
       await login(data.token, data.user);
 
-      Alert.alert("Success", "Logged in successfully!");
+      showSnackbar("Your login is successful");
       router.replace("/(tabs)"); // Go back to tabs
     } catch (error: any) {
-      Alert.alert("Error", error.response?.data?.error || "Login failed");
+      showSnackbar(error.response?.data?.error || "login failed");
     }
   };
 

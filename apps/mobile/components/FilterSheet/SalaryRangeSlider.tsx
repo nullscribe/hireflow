@@ -20,11 +20,11 @@ export default function SalaryRangeSlider({
   filters,
 }: SalaryRangeSliderProps) {
   const [salaryMin, setSalaryMin] = useState(0);
-  const [salaryMax, setSalaryMax] = useState(100_000);
+  const [salaryMax, setSalaryMax] = useState(200_000);
 
   useEffect(() => {
     setSalaryMin(filters.salaryMin ?? 0);
-    setSalaryMax(filters.salaryMax ?? 100_000);
+    setSalaryMax(filters.salaryMax ?? 200_000);
   }, [filters]);
 
   return (
@@ -40,7 +40,7 @@ export default function SalaryRangeSlider({
         values={[salaryMin, salaryMax]}
         sliderLength={SCREEN_WIDTH - 50}
         min={0}
-        max={100_000}
+        max={200_000}
         customMarkerLeft={() => <CustomMarker />}
         customMarkerRight={() => <CustomMarker />}
         trackStyle={{ height: 4, borderRadius: 3 }}

@@ -4,6 +4,7 @@ import { Stack } from "expo-router";
 import { MD3LightTheme as DefaultTheme, PaperProvider } from "react-native-paper";
 import { StatusBar } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SnackbarProvider } from "@/contexts/SnackBarContext";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -22,14 +23,16 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView>
       <PaperProvider theme={theme}>
-        <StatusBar animated barStyle="dark-content" />
-        <SafeAreaProvider>
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="(tabs)" />
-            <Stack.Screen name="auth/login" />
-            <Stack.Screen name="auth/register" />
-          </Stack>
-        </SafeAreaProvider>
+        <SnackbarProvider>
+          <StatusBar animated barStyle="dark-content" />
+          <SafeAreaProvider>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="(tabs)" />
+              <Stack.Screen name="auth/login" />
+              <Stack.Screen name="auth/register" />
+            </Stack>
+          </SafeAreaProvider>
+        </SnackbarProvider>
       </PaperProvider>
     </GestureHandlerRootView>
   );
