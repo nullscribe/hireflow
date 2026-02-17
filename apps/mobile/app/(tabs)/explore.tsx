@@ -26,7 +26,7 @@ export default function ExploreScreen() {
       location: params.location as string,
       salaryMin: params.salaryMin ? Number(params.salaryMin) : undefined,
       salaryMax: params.salaryMax ? Number(params.salaryMax) : undefined,
-      isFeatured: params.isFeatured ? Boolean(params.isFeatured) : undefined,
+      isFeatured: params.isFeatured ? params.isFeatured === "true" : undefined,
       search: params.search as string,
       limit: params.limit ? Number(params.limit) : undefined,
       offset: params.offset ? Number(params.ofsset) : undefined,

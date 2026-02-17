@@ -70,6 +70,7 @@ export default function FilterSheet({
           <CountryPicker
             containerStyle={styles.inputSegment}
             labelStyle={styles.label}
+            value={filters.country}
             onValueChange={(value) => setFilters({ ...filters, country: value })}
           />
           <FeaturedSwitch
