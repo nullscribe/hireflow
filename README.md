@@ -51,6 +51,12 @@ The repository is a monorepo with the following structure:
 - `packages/types`: Shared types between the different applications.
 - `packages/typescript-config`: Shared TypeScript `tsconfig.json` files.
 
+## Screenshots
+
+| Home | Search | Job Details |
+|------|--------|-------------|
+| ![Home](docs/images/mobile_preview1.jpeg) | ![Search](docs/images/mobile_preview2.jpeg) | ![Job Details](docs/images/mobile_preview3.jpeg) |
+
 ## Getting Started
 
 ### Prerequisites
