@@ -8,6 +8,8 @@ export const ENVIRONMENT = process.env.NODE_ENV || "development";
 
 export const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
+export const NODE_ENV = process.env.NODE_ENV || "development";
+
 if (ENVIRONMENT === "production" && JWT_SECRET === "secret") {
   throw new Error("JWT_SECRET must be set in production");
 }

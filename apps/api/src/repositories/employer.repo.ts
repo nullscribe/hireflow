@@ -2,7 +2,7 @@ import { singleton } from "tsyringe";
 import type { EmployerDetailResponse, EmployerJobCount } from "@hireflow/types";
 import db from "../db/index.js";
 import { count, desc, eq } from "drizzle-orm";
-import { employers, jobs } from "../db/schema.js";
+import { employers, jobs } from "../db/schema/index.js";
 import {
   toEmployerWithJobsResponse,
   type SelectEmployerWithJobs,

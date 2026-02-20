@@ -3,13 +3,11 @@ import { useAuthStore } from "@/stores/authStore";
 import { RegistrationSchema, RegistrationType } from "@hireflow/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { router } from "expo-router";
-import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Alert, View, StyleSheet } from "react-native";
-import { Button, SegmentedButtons, Text, TextInput } from "react-native-paper";
+import { Button, Text, TextInput } from "react-native-paper";
 
 export default function RegistrationForm() {
-  const [user, setUser] = useState<"candidate" | "employer">("candidate");
   const login = useAuthStore((state) => state.login);
 
   const {
@@ -35,20 +33,6 @@ export default function RegistrationForm() {
 
   return (
     <View style={styles.formContainer}>
-      <SegmentedButtons
-        value={user}
-        onValueChange={setUser}
-        buttons={[
-          {
-            value: "candidate",
-            label: "Seeker",
-          },
-          {
-            value: "employer",
-            label: "Employer",
-          },
-        ]}
-      />
       <View>
         <Controller
           control={control}

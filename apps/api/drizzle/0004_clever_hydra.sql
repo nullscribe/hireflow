@@ -1,0 +1,1 @@
+ALTER TABLE "candidates" ALTER COLUMN "profile_completion_score" SET DEFAULT 10;

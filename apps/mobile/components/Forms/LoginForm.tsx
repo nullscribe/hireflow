@@ -1,16 +1,14 @@
 import { View, StyleSheet, Keyboard } from "react-native";
-import { TextInput, SegmentedButtons, Button, Text } from "react-native-paper";
+import { TextInput, Button, Text } from "react-native-paper";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, type LoginType } from "@hireflow/types";
-import { useState } from "react";
 import { useAuthStore } from "@/stores/authStore";
 import { authApi } from "@/lib/apiService";
 import { router } from "expo-router";
 import { useSnackbar } from "@/contexts/SnackBarContext";
 
 export default function LoginForm() {
-  const [user, setUser] = useState<"candidate" | "employer">("candidate");
   const login = useAuthStore((state) => state.login);
   const { showSnackbar } = useSnackbar();
 
@@ -38,20 +36,6 @@ export default function LoginForm() {
 
   return (
     <View style={styles.formContainer}>
-      <SegmentedButtons
-        value={user}
-        onValueChange={setUser}
-        buttons={[
-          {
-            value: "candidate",
-            label: "Seeker",
-          },
-          {
-            value: "employer",
-            label: "Employer",
-          },
-        ]}
-      />
       <View>
         <Controller
           control={control}

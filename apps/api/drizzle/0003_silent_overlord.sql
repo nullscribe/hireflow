@@ -1,0 +1,1 @@
+ALTER TABLE "candidate_skills" RENAME COLUMN "proficiencyLevel" TO "proficiency_level";
