@@ -12,4 +12,14 @@ export default defineConfig([
     ignores: ["./dist/**/*"],
   },
   tseslint.configs.recommended,
+  {
+    rules: {
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
+    },
+  },
 ]);

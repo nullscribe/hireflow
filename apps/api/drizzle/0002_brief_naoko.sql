@@ -1,1 +1,0 @@
-ALTER TABLE "jobs" RENAME COLUMN "company_name" TO "industry_name";

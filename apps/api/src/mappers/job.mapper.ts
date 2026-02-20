@@ -1,4 +1,4 @@
-import type { SelectEmployer, SelectJob } from "../db/schema.js";
+import type { SelectEmployer, SelectJob } from "../db/schema/index.js";
 import type { JobDTO, JobResponse } from "@hireflow/types";
 
 export interface SelectJobWithEmployer extends SelectJob {

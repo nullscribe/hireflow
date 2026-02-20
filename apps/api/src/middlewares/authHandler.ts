@@ -14,14 +14,15 @@ export const authHandler = (req: AuthRequest, res: Response, next: NextFunction)
     const token = req.headers.authorization?.split(" ")[1]; // Bearer TOKEN
 
     if (!token) {
-      return res.status(401).json({ error: "No token provided" });
+      res.status(401).json({ error: "No token provided" });
+      return;
     }
 
     const decoded = jwt.verify(token, JWT_SECRET) as { userId: number; email: string };
     req.user = decoded;
 
     next();
-  } catch (error) {
-    res.status(401).json({ error: `Invalid or expired token or ${error}` });
+  } catch (_error) {
+    res.status(401).json({ error: "Invalid or expired token" });
   }
 };

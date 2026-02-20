@@ -32,25 +32,25 @@ export default function TabLayout() {
         }}
       />
 
-      <Tabs.Screen
-        name="saved"
-        options={{
-          title: "Saved",
-          href: isLoggedIn ? "/saved" : null,
-          tabBarIcon: ({ color }) => <Ionicons name="folder-outline" color={color} size={28} />,
-        }}
-      />
+      <Tabs.Protected guard={isLoggedIn}>
+        <Tabs.Screen
+          name="saved"
+          options={{
+            title: "Saved",
+            tabBarIcon: ({ color }) => <Ionicons name="folder-outline" color={color} size={28} />,
+          }}
+        />
 
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: "Profile",
-          href: isLoggedIn ? "/profile" : null,
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account-outline" color={color} size={28} />
-          ),
-        }}
-      />
+        <Tabs.Screen
+          name="profile"
+          options={{
+            title: "Profile",
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="account-outline" color={color} size={28} />
+            ),
+          }}
+        />
+      </Tabs.Protected>
     </Tabs>
   );
 }

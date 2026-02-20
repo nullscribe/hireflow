@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { hash, compare } from "bcrypt";
 
 import { JWT_SECRET } from "../secrets.js";
-import { candidates } from "../db/schema.js";
+import { candidates } from "../db/schema/index.js";
 import db from "../db/index.js";
 import type { AuthResponse, LoginDTO, RegisterDTO } from "@hireflow/types";
 

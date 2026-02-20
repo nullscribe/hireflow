@@ -1,6 +1,6 @@
 import { singleton } from "tsyringe";
 import db from "../db/index.js";
-import { candidates, jobs, savedJobs } from "../db/schema.js";
+import { candidates, jobs, savedJobs } from "../db/schema/index.js";
 import { and, desc, eq, gte, ilike, lte, type SQL, sql } from "drizzle-orm";
 import type { CategoryGroup, CountryGroup, JobFilters, JobResponse } from "@hireflow/types";
 import { toJobResponse, type SelectJobWithEmployer } from "../mappers/job.mapper.js";
