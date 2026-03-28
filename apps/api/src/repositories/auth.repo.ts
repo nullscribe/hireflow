@@ -10,15 +10,15 @@ import type { AuthResponse, LoginDTO, RegisterDTO } from "@hireflow/types";
 
 @singleton()
 export default class AuthRepository {
-  async login(dto: LoginDTO): Promise<AuthResponse> {
+  async login(dto: LoginDTO): Promise<AuthResponse | null> {
     const [user] = await db.select().from(candidates).where(eq(candidates.email, dto.email));
     if (!user) {
-      throw new Error("Invalid credentials");
+      return null;
     }
 
     const isValid = await compare(dto.password, user.password);
     if (!isValid) {
-      throw new Error("Invalid credentials");
+      return null;
     }
 
     const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, {

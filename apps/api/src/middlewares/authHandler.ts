@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../secrets.js";
+import { BadRequestError } from "@hireflow/types";
 
 export interface AuthRequest extends Request {
   user?: {
@@ -14,8 +15,7 @@ export const authHandler = (req: AuthRequest, res: Response, next: NextFunction)
     const token = req.headers.authorization?.split(" ")[1]; // Bearer TOKEN
 
     if (!token) {
-      res.status(401).json({ error: "No token provided" });
-      return;
+      throw new BadRequestError("No token provided");
     }
 
     const decoded = jwt.verify(token, JWT_SECRET) as { userId: number; email: string };

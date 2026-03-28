@@ -16,8 +16,9 @@ export default class CandidateRepository {
         experiences: true,
       },
     });
+
     if (!profile) {
-      throw new Error("Candidate not found");
+      return undefined;
     }
 
     const { missing } = this.calculateCompletionScore(profile);

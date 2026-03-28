@@ -1,6 +1,13 @@
 import { singleton } from "tsyringe";
 import type { Request, Response } from "express";
-import type { AuthResponse, RegisterDTO, LoginDTO, ErrorResponse } from "@hireflow/types";
+import {
+  type AuthResponse,
+  type RegisterDTO,
+  type LoginDTO,
+  BadRequestError,
+  LoginSchema,
+  RegistrationSchema,
+} from "@hireflow/types";
 import AuthRepository from "../repositories/auth.repo.js";
 
 @singleton()
@@ -8,46 +15,23 @@ export default class AuthController {
   constructor(private readonly authRepo: AuthRepository) {}
 
   handleLogin = async (
-    req: Request<Record<string, never>, AuthResponse | ErrorResponse, LoginDTO>,
-    res: Response<AuthResponse | ErrorResponse>,
+    req: Request<Record<string, never>, AuthResponse, LoginDTO>,
+    res: Response<AuthResponse>,
   ) => {
-    try {
-      const { email, password } = req.body;
-      const result = await this.authRepo.login({ email, password } as LoginDTO);
-      res.json(result);
-    } catch (error: unknown) {
-      let message = "Internal Server Error";
-      let status = 500;
-
-      if (error instanceof Error) {
-        message = error.message;
-        status = 401;
-      }
-
-      res.status(status).json({ error: message });
+    const { email, password } = LoginSchema.parse(req.body);
+    const result = await this.authRepo.login({ email, password } as LoginDTO);
+    if (result === null) {
+      throw new BadRequestError("Invalid email or password");
     }
+    res.json(result);
   };
 
   handleRegistration = async (
-    req: Request<Record<string, never>, AuthResponse | ErrorResponse, RegisterDTO>,
-    res: Response<AuthResponse | ErrorResponse>,
+    req: Request<Record<string, never>, AuthResponse, RegisterDTO>,
+    res: Response<AuthResponse>,
   ) => {
-    try {
-      const { name, email, password } = req.body;
-
-      const result = await this.authRepo.register({ name, email, password } as RegisterDTO);
-
-      res.json(result);
-    } catch (error: unknown) {
-      let message = "Internal Server Error";
-      let status = 500;
-
-      if (error instanceof Error) {
-        message = error.message;
-        status = 400;
-      }
-
-      res.status(status).json({ error: message });
-    }
+    const { name, email, password } = RegistrationSchema.parse(req.body);
+    const result = await this.authRepo.register({ name, email, password } as RegisterDTO);
+    res.json(result);
   };
 }
